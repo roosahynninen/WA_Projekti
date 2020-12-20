@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var Post = require("../models/post");
+var Post = require("../schemas/post");
 
 //rendering index.js (log in/sign up view)
 router.get("/", function (req, res, next) {

@@ -3,9 +3,9 @@ var express = require("express");
 var router = express.Router();
 var dateFormat = require("dateformat");
 
-//importing models/
-var Post = require("../models/post");
-var User = require("../models/user");
+//importing models
+var Post = require("../schemas/post");
+var User = require("../schemas/user");
 
 //variable for current user
 var loggedUser;
@@ -28,19 +28,19 @@ mongoose.connection
     console.log("An error ocurred", error);
   });
 
-//Rendering the posts.pug view
+//rendering posts.pug view
 router.get("/", function (req, res, next) {
   Post.find({}).exec(function (err, data) {
     if (err) return next(err);
     res.render("posts", {
-      title: "Posts",
+      title: "What's going on?",
       logUserMsg: loggedUser,
       post_list: data
     });
   });
 });
 
-//Logging in
+//log in
 router.post("/login", sanitizeBody("*").trim().escape(), function (
   req,
   res,
@@ -50,7 +50,7 @@ router.post("/login", sanitizeBody("*").trim().escape(), function (
   var local_password = req.body.pwlogin;
   loggedUser = local_user;
 
-  //Checks if the username and password match exists in the database
+  //checking database for matches
   User.find({}).exec(function (err, data) {
     if (err) return next(err);
     Post.find({}).exec(function (err, data1) {
@@ -67,11 +67,11 @@ router.post("/login", sanitizeBody("*").trim().escape(), function (
         }
         //If there's not a user with the given log in information,
         //render the index.pug again with an error message.
-        //Otherwise render the posts.pug view
+        //Otherwise rendering posts.pug view
         if (foundUser === 0) {
           res.render("index", {
             title: "What A day!",
-            logMessage: "Wrong username or password.",
+            logMessage: "Incorrect username or password",
             post_list: data1
           });
         } else {
@@ -231,7 +231,7 @@ router.post("/filter", sanitizeBody("*").trim().escape(), function (
     Post.find({ user: local_filteruser }).exec(function (err, data1) {
       if (err) return next(err);
       res.render("posts", {
-        title: "Posts",
+        title: "What's going on?",
         logUserMsg: loggedUser,
         filterMessage: "Showing posts made by " + local_filteruser + ".",
         post_list: data1
@@ -241,7 +241,7 @@ router.post("/filter", sanitizeBody("*").trim().escape(), function (
     Post.find({ time: new RegExp(day, "i") }).exec(function (err, data1) {
       if (err) return next(err);
       res.render("posts", {
-        title: "Posts",
+        title: "What's going on?",
         logUserMsg: loggedUser,
         filterMessage: "Showing posts made on " + day + ".",
         post_list: data1
@@ -251,7 +251,7 @@ router.post("/filter", sanitizeBody("*").trim().escape(), function (
     Post.find({}).exec(function (err, data1) {
       if (err) return next(err);
       res.render("posts", {
-        title: "Posts",
+        title: "What's going on?",
         logUserMsg: loggedUser,
         filterMessage: "Showing all the posts.",
         post_list: data1
