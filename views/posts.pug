@@ -20,7 +20,7 @@ html
           .col.s5.m12
         .col.s12.m8
           h2= title
-          h6= "User logged in: " + logUserMsg
+          h6= "You are logged in as " + logUserMsg
         .col.s12.m2
           form.center(method="POST" action="/posts/logout")
             button.btn.black.waves-effect(type='submit', name='logoutbtn') Log Out
