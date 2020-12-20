@@ -46,10 +46,10 @@ html
               form(method='POST' action='/posts/signup')
                 .form-group.input-field
                   input#signname.form-control(type='text', maxlength='30', name='usersignup')
-                  label(for='signname') New username
+                  label(for='signname') Username
                 .form-group.input-field
                   input#signpw.form-control(type='password', maxlength='30', name='pwsignup')
-                  label(for='signpw') New password
+                  label(for='signpw') Password
                 button.btn.black.waves-effect(type='submit', name='signupbtn') Sign Up
             br
         .col.s0.m1
@@ -59,9 +59,9 @@ html
           .container
             ul
             each post in post_list.reverse()
-              li.left-align #{post.user}: #{post.content} - #{post.time}
+              li.left-align #{post.content} - #{post.user} - #{post.time}
             else
-              p.left-align No posts yet, be the first!
+              p.left-align No posts yet :/ Be the first to post!
             ul
   br
   p © Roosa Hynninen 2020   

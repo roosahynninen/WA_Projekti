@@ -27,11 +27,11 @@ html
     .row
       .container
         .col.s12.m12.l12.xl4
-          h6.left-align Filter posts by username, by date or by both
+          h6.left-align Filter posts by user and/or date
           form.left-align(method="POST" action="/posts/filter")
             .col.s12.m6.l6.xl12
               .form-group.input-field
-                input#filterName.form-control(type='text', name='filtername', maxlength='30')
+                input#filterUser.form-control(type='text', name='filtername', maxlength='30')
                 label(for='filterName') Username
             .col.s12.m6.l6.xl12
               .form-group.input-field
