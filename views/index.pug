@@ -12,12 +12,11 @@ html
       include ../stylesheets/style.css
 
   body
-    .row.grey.lighten-2
+    .row.light-green.lighten-3
       .container
         .col.s12.m2
           .col.s5.m12
           .col.s2.m12
-            h1#logo.light-green.darken-3.white-text MB
           .col.s5.m12
         .col.s12.m8
           h1= title
@@ -27,7 +26,7 @@ html
     .row
       .container
         p See what others have posted and post content yourself after logging in.
-        .col.s12.m3.l3.xl4.light-green.lighten-5.hoverable.border
+        .col.s12.m3.l3.xl4.light-green.lighten-3.hoverable.border
           .col.s6.m12.l12.xl6
             p.red-text= logMessage
             h5 Log In
@@ -56,13 +55,13 @@ html
         .col.s0.m1
           .row
             .col.s12.m0
-        .col.s12.m8.l8.xl7.light-green.lighten-5.hoverable.border
+        .col.s12.m8.l8.xl7.light-green.lighten-3.hoverable.border
           .container
             ul
             each post in post_list.reverse()
               li.left-align #{post.user}: #{post.content} - #{post.time}
             else
-              p.left-align No posts in the MicroBlog yet
+              p.left-align No posts yet
             ul
 
     
