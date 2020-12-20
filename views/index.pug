@@ -28,29 +28,29 @@ html
         p Look at how others are feeling today! After log in you are able to post about your day.
         .col.s12.m3.l3.xl4.light-green.lighten-3.hoverable.border
           .col.s6.m12.l12.xl6
-            p.red-text= logMessage
+            p.red-text= log_msg
             h5 Log In
               form(method='POST' action='/posts/login')
                 .form-group.input-field
-                  input#logname.form-control(type='text', maxlength='30', name='userlogin')
-                  label(for='logname') Username
+                  input#user_login.form-control(type='text', maxlength='30', name='user_login')
+                  label(for='user_login') Username
                 .form-group.input-field
-                  input#logpw.form-control(type='password', maxlength='30', name='pwlogin')
-                  label(for='logpw') Password
-                button.btn.black.waves-effect(type='submit' name='loginbtn') Log In
+                  input#pass_login.form-control(type='password', maxlength='30', name='pass_login')
+                  label(for='pass_login') Password
+                button.btn.black.waves-effect(type='submit' name='login_button') Log In
             br
           .col.s6.m12.l12.xl6
-            p.red-text= signMessage1
-            p= signMessage2
+            p.red-text= sign_msg1
+            p= sign_msg2
             h5 Sign Up
               form(method='POST' action='/posts/signup')
                 .form-group.input-field
-                  input#signname.form-control(type='text', maxlength='30', name='usersignup')
-                  label(for='signname') Username
+                  input#user_signup.form-control(type='text', maxlength='30', name='user_signup')
+                  label(for='user_signup') Username
                 .form-group.input-field
-                  input#signpw.form-control(type='password', maxlength='30', name='pwsignup')
-                  label(for='signpw') Password
-                button.btn.black.waves-effect(type='submit', name='signupbtn') Sign Up
+                  input#pass_signup.form-control(type='password', maxlength='30', name='pass_signup')
+                  label(for='pass_signup') Password
+                button.btn.black.waves-effect(type='submit', name='signup_button') Sign Up
             br
         .col.s0.m1
           .row

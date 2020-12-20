@@ -23,7 +23,7 @@ html
           h6= "You are logged in as " + logged_user
         .col.s12.m2
           form.center(method="POST" action="/posts/logout")
-            button.btn.black.waves-effect(type='submit', name='logoutbtn') Log Out
+            button.btn.black.waves-effect(type='submit', name='logout_button') Log Out
     .row
       .container
         .col.s12.m12.l12.xl4
@@ -31,20 +31,20 @@ html
           form.left-align(method="POST" action="/posts/filter")
             .col.s12.m6.l6.xl12
               .form-group.input-field
-                input#filterUser.form-control(type='text', name='filtername', maxlength='30')
-                label(for='filterName') Username
+                input#filter_username.form-control(type='text', name='filter_username', maxlength='30')
+                label(for='filter_username') Username
             .col.s12.m6.l6.xl12
               .form-group.input-field
-                input#filterDate.form-control(type='date', class='datepicker', data-date-format="dd.mm.yyyy", name='filterdate')
-                label(for='filterDate')
-            button.btn.black.waves-effect(type='submit', name='filterbtn') Filter or Reset
+                input#filter_date.form-control(type='date', class='datepicker', data-date-format="dd.mm.yyyy", name='filter_date')
+                label(for='filter_date')
+            button.btn.black.waves-effect(type='submit', name='filter_button') Filter or Reset
         .col.s12.m12.l12.xl8
-          p.left-align= filterMessage
+          p.left-align= filter_msg
           .col.s12.light-green.lighten-3.hoverable.border
             .container
               ul
               each post in post_list.reverse()
-                li.left-align #{post.user}: #{post.content} - #{post.time}
+                li.left-align #{post.content} - #{post.user} - #{post.time}
               else
                 p.left-align There are no posts yet :(
               ul
@@ -52,13 +52,13 @@ html
     .row
       .container
         hr
-        h6#submitPost Submit a new post
+        h6#submit_post Submit a new post
         p.left-align Posts can be 400 characters long
         form(method='POST' action='/posts/create')
           .form-group.input-field
-            textarea#content.form-control(type='text', class='materialize-textarea', data-length='300', maxlength='300', name='content')
+            textarea#content.form-control(type='text', class='materialize-textarea', data-length='400', maxlength='400', name='content')
             label(for='content') Write here
-          button.btn.black.waves-effect(type='submit', name='postbtn') Submit your post
-        p.red-text= submitMessage
+          button.btn.black.waves-effect(type='submit', name='post_button') Submit your post
+        p.red-text= submit_msg
   br
   p © Roosa Hynninen 2020

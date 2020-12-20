@@ -17,9 +17,7 @@ const mongoose = require("mongoose");
 //connecting to the database with mongoose
 var DBUrl =
   "mongodb+srv://rhynnine:Kissa888!@cluster0.unrpb.mongodb.net/WAproject?retryWrites=true&w=majority";
-mongoose
-  .connect(DBUrl, { useNewUrlParser: true })
-  .catch((err) => console.log(err));
+mongoose.connect(DBUrl, { useNewUrlParser: true }).catch((e) => console.log(e));
 mongoose.connection
   .once("open", function () {
     console.log("Connected");
@@ -30,8 +28,8 @@ mongoose.connection
 
 //rendering posts.pug view
 router.get("/", function (req, res, next) {
-  Post.find({}).exec(function (err, data1) {
-    if (err) return next(err);
+  Post.find({}).exec(function (e, data1) {
+    if (e) return next(e);
     res.render("posts", {
       title: "What's going on?",
       logged_user: loggedUser,
@@ -46,22 +44,19 @@ router.post("/login", sanitizeBody("*").trim().escape(), function (
   res,
   next
 ) {
-  var local_user = req.body.userlogin;
-  var local_password = req.body.pwlogin;
-  loggedUser = local_user;
+  var lUser = req.body.user_login;
+  var lPassword = req.body.pass_login;
+  loggedUser = lUser;
 
   //checking database for matches
-  User.find({}).exec(function (err, data1) {
-    if (err) return next(err);
-    Post.find({}).exec(function (err, data2) {
-      if (err) return next(err);
-      if (local_user && local_password !== "") {
+  User.find({}).exec(function (e, data1) {
+    if (e) return next(e);
+    Post.find({}).exec(function (e, data2) {
+      if (e) return next(e);
+      if (lUser && lPassword !== "") {
         var foundUser = 0;
         for (var i = 0; i < data1.length; i++) {
-          if (
-            data1[i].username === local_user &&
-            data1[i].password === local_password
-          ) {
+          if (data1[i].username === lUser && data1[i].password === lPassword) {
             foundUser++;
           }
         }
@@ -69,7 +64,7 @@ router.post("/login", sanitizeBody("*").trim().escape(), function (
         if (foundUser === 0) {
           res.render("index", {
             title: "What A day!",
-            logMessage: "Incorrect username or password",
+            log_msg: "Incorrect username or password",
             post_list: data2
           });
         } else {
@@ -79,7 +74,7 @@ router.post("/login", sanitizeBody("*").trim().escape(), function (
       } else {
         res.render("index", {
           title: "What A day!",
-          logMessage: "Fill in log in details.",
+          log_msg: "Fill in log in details.",
           post_list: data2
         });
       }
@@ -93,18 +88,18 @@ router.post("/signup", sanitizeBody("*").trim().escape(), function (
   res,
   next
 ) {
-  var local_user = req.body.usersignup;
-  var local_password = req.body.pwsignup;
+  var lUser = req.body.user_signup;
+  var lPassword = req.body.pass_signup;
 
-  if (local_user && local_password !== "") {
-    User.find({}).exec(function (err, data1) {
-      if (err) return next(err);
-      Post.find({}).exec(function (err, data2) {
-        if (err) return next(err);
+  if (lUser && lPassword !== "") {
+    User.find({}).exec(function (e, data1) {
+      if (e) return next(e);
+      Post.find({}).exec(function (e, data2) {
+        if (e) return next(e);
         //checing whether username is unique
         var counter = 0;
         for (var i = 0; i < data1.length; i++) {
-          if (data1[i].username === local_user) {
+          if (data1[i].username === lUser) {
             counter++;
           }
         }
@@ -112,22 +107,22 @@ router.post("/signup", sanitizeBody("*").trim().escape(), function (
         if (counter > 0) {
           res.render("index", {
             title: "What A day!",
-            signMessage1: "Username already in use.",
+            sign_msg1: "Username taken",
             post_list: data2
           });
           //if free, rendering the index.pug view with message
         } else {
           var user = new User({
-            username: local_user,
-            password: local_password
+            username: lUser,
+            password: lPassword
           });
-          user.save(function (err) {
-            if (err) return next(err);
-            Post.find({}).exec(function (err, data2) {
-              if (err) return next(err);
+          user.save(function (e) {
+            if (e) return next(e);
+            Post.find({}).exec(function (e, data2) {
+              if (e) return next(e);
               res.render("index", {
                 title: "What A day!",
-                signMessage2: "Sign up was successful",
+                sign_msg2: "Sign up was successful",
                 post_list: data2
               });
             });
@@ -135,120 +130,114 @@ router.post("/signup", sanitizeBody("*").trim().escape(), function (
         }
       });
     });
-    //If the user doesn't fill in all the fields,
-    //the index.pug view is rendered again with an error message
+    //if all fields are not filled, rendering index.pug view with error message
   } else {
-    Post.find({}).exec(function (err, data2) {
-      if (err) return next(err);
+    Post.find({}).exec(function (e, data2) {
+      if (e) return next(e);
       res.render("index", {
         title: "What A day!",
-        signMessage1: "Fill in all the fields.",
+        sign_msg1: "Please, fill all the fields",
         post_list: data2
       });
     });
   }
 });
 
-//Logging out and returning to the home page (rendering index.pug)
+//log out and returning to front page
 router.post("/logout", function (req, res, next) {
   res.redirect("/");
 });
 
-//Creating a new post
+//creating a new post
 router.post("/create", sanitizeBody("*").trim().escape(), function (
   req,
   res,
   next
 ) {
-  var local_content = req.body.content;
+  var lContent = req.body.content;
 
-  if (local_content !== "") {
-    //Getting the Finnish date and time for the creation time of the post
-    var finnishTime = new Date().getTime() + 3 * 60 * 60 * 1000;
-    var date = dateFormat(finnishTime, "HH:MM:ss dd.mm.yyyy");
+  if (lContent !== "") {
+    //getting the correct date and time
+    var time = new Date().getTime() + 3 * 60 * 60 * 1000;
+    var date = dateFormat(time, "HH:MM dd.mm.yyyy");
 
     var post = new Post({
       user: loggedUser,
-      content: local_content,
+      content: lContent,
       time: date
     });
-    //Saving the post for the current user at the current time
-    //and rendering the posts.pug view again
-    post.save(function (err) {
-      if (err) return next(err);
+    //saving the post with time and user and rendering posts.pug view
+    post.save(function (e) {
+      if (e) return next(e);
       res.redirect("/posts");
     });
-    //If the user doesn't fill in all the fields,
-    //the posts.pug view is rendered again with an error message
+    //if all fields are not filled, rendering posts.pug view with error message
   } else {
-    Post.find({}).exec(function (err, data2) {
-      if (err) return next(err);
+    Post.find({}).exec(function (e, data2) {
+      if (e) return next(e);
       res.render("posts", {
-        title: "Posts",
+        title: "What's going on?",
         logged_user: loggedUser,
-        submitMessage: "Write something to post content.",
+        submit_msg: "Write something to post content.",
         post_list: data2
       });
     });
   }
 });
 
-//Filtering the posts.
-//The user can filter posts by the username, by the date created,
-//by both of them both or by no filter at all
+//filtering posts
+//user can filter posts by username and/or date created
+
 router.post("/filter", sanitizeBody("*").trim().escape(), function (
   req,
   res,
   next
 ) {
-  var local_filteruser = req.body.filtername;
-  var local_filterdate = req.body.filterdate;
-  var day = dateFormat(local_filterdate, "dd.mm.yyyy");
+  var fUser = req.body.filter_username;
+  var fDate = req.body.filter_date;
+  var day = dateFormat(fDate, "dd.mm.yyyy");
 
-  //Check which filter fields are used and filter the posts accordingly
-  //by rendering the posts.pug view again with the posts filtered and
-  //a message telling what filters are being used
-  if (local_filteruser !== "" && local_filterdate !== "") {
+  //checking which filters are used and filter the posts accordingly with rendering posts.pug view
+  if (fUser !== "" && fDate !== "") {
     Post.find({
-      user: local_filteruser,
+      user: fUser,
       time: new RegExp(day, "i")
-    }).exec(function (err, data2) {
-      if (err) return next(err);
+    }).exec(function (e, data2) {
+      if (e) return next(e);
       res.render("posts", {
         title: "Posts",
         logged_user: loggedUser,
-        filterMessage:
-          "Showing posts made by " + local_filteruser + " on " + day + ".",
+        filter_msg: "Showing posts made by " + fUser + " on " + day + ".",
         post_list: data2
       });
     });
-  } else if (local_filteruser !== "" && local_filterdate === "") {
-    Post.find({ user: local_filteruser }).exec(function (err, data2) {
-      if (err) return next(err);
+  } else if (fUser !== "" && fDate === "") {
+    Post.find({ user: fUser }).exec(function (e, data2) {
+      if (e) return next(e);
       res.render("posts", {
         title: "What's going on?",
         logged_user: loggedUser,
-        filterMessage: "Showing posts made by " + local_filteruser + ".",
+        filter_msg: "Showing posts made by " + fUser + ".",
         post_list: data2
       });
     });
-  } else if (local_filteruser === "" && local_filterdate !== "") {
-    Post.find({ time: new RegExp(day, "i") }).exec(function (err, data2) {
-      if (err) return next(err);
+  } else if (fUser === "" && fDate !== "") {
+    Post.find({ time: new RegExp(day, "i") }).exec(function (e, data2) {
+      if (e) return next(e);
       res.render("posts", {
         title: "What's going on?",
         logged_user: loggedUser,
-        filterMessage: "Showing posts made on " + day + ".",
+        filter_msg: "Showing posts made on " + day + ".",
         post_list: data2
       });
     });
   } else {
-    Post.find({}).exec(function (err, data2) {
-      if (err) return next(err);
+    Post.find({}).exec(function (e, data2) {
+      if (e) return next(e);
       res.render("posts", {
         title: "What's going on?",
         logged_user: loggedUser,
-        filterMessage: "Showing all the posts.",
+        filter_msg: "Showing all the posts.",
         post_list: data2
       });
     });
