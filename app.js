@@ -28,12 +28,12 @@ app.use("/", indexRouter);
 app.use("/posts", postsRouter);
 
 // Catch 404 and forward to error handler - default
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // Register error handler - default
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};

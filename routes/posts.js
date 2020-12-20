@@ -3,11 +3,12 @@ var express = require("express");
 var router = express.Router();
 var dateFormat = require("dateformat");
 
+//Importing models
+var Post = require("../models/post");
+var User = require("../models/user");
+
 //Variable for saving the username of the current user logged in
 var loggedUser;
-
-var Post = require("../routes/models");
-var User = require("../routes/models");
 
 // Good validation documentation available at https://express-validator.github.io/docs/
 const { sanitizeBody } = require("express-validator");
@@ -69,7 +70,7 @@ router.post("/login", sanitizeBody("*").trim().escape(), function (
         //Otherwise render the posts.pug view
         if (foundUser === 0) {
           res.render("index", {
-            title: "MicroBlog",
+            title: "What A day!",
             logMessage: "Wrong username or password.",
             post_list: data1
           });
@@ -80,7 +81,7 @@ router.post("/login", sanitizeBody("*").trim().escape(), function (
         //the index.pug view is rendered again with an error message
       } else {
         res.render("index", {
-          title: "MicroBlog",
+          title: "What A day!",
           logMessage: "Fill in log in details.",
           post_list: data1
         });
@@ -114,7 +115,7 @@ router.post("/signup", sanitizeBody("*").trim().escape(), function (
         //render the index.pug view again with an error message
         if (counter > 0) {
           res.render("index", {
-            title: "MicroBlog",
+            title: "What A day!",
             signMessage1: "Username already in use.",
             post_list: data1
           });
@@ -130,7 +131,7 @@ router.post("/signup", sanitizeBody("*").trim().escape(), function (
             Post.find({}).exec(function (err, data1) {
               if (err) return next(err);
               res.render("index", {
-                title: "MicroBlog",
+                title: "What A day!",
                 signMessage2: "New user added succesfully. You may now log in.",
                 post_list: data1
               });
@@ -145,7 +146,7 @@ router.post("/signup", sanitizeBody("*").trim().escape(), function (
     Post.find({}).exec(function (err, data1) {
       if (err) return next(err);
       res.render("index", {
-        title: "MicroBlog",
+        title: "What A day!",
         signMessage1: "Fill in all the fields.",
         post_list: data1
       });
