@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 var postSchema = new mongoose.Schema({
   user: { type: String, required: true, maxlength: 30 },
-  content: { type: String, required: true, maxlength: 300 },
+  content: { type: String, required: true, maxlength: 400 },
   time: { type: String, required: true }
 });
 
