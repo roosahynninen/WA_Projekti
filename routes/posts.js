@@ -34,7 +34,7 @@ router.get("/", function (req, res, next) {
     if (err) return next(err);
     res.render("posts", {
       title: "What's going on?",
-      logUserMsg: loggedUser,
+      logged_user: loggedUser,
       post_list: data
     });
   });
@@ -190,7 +190,7 @@ router.post("/create", sanitizeBody("*").trim().escape(), function (
       if (err) return next(err);
       res.render("posts", {
         title: "Posts",
-        logUserMsg: loggedUser,
+        logged_user: loggedUser,
         submitMessage: "Write something to post content.",
         post_list: data1
       });
@@ -221,7 +221,7 @@ router.post("/filter", sanitizeBody("*").trim().escape(), function (
       if (err) return next(err);
       res.render("posts", {
         title: "Posts",
-        logUserMsg: loggedUser,
+        logged_user: loggedUser,
         filterMessage:
           "Showing posts made by " + local_filteruser + " on " + day + ".",
         post_list: data1
@@ -232,7 +232,7 @@ router.post("/filter", sanitizeBody("*").trim().escape(), function (
       if (err) return next(err);
       res.render("posts", {
         title: "What's going on?",
-        logUserMsg: loggedUser,
+        logged_user: loggedUser,
         filterMessage: "Showing posts made by " + local_filteruser + ".",
         post_list: data1
       });
@@ -242,7 +242,7 @@ router.post("/filter", sanitizeBody("*").trim().escape(), function (
       if (err) return next(err);
       res.render("posts", {
         title: "What's going on?",
-        logUserMsg: loggedUser,
+        logged_user: loggedUser,
         filterMessage: "Showing posts made on " + day + ".",
         post_list: data1
       });
@@ -252,7 +252,7 @@ router.post("/filter", sanitizeBody("*").trim().escape(), function (
       if (err) return next(err);
       res.render("posts", {
         title: "What's going on?",
-        logUserMsg: loggedUser,
+        logged_user: loggedUser,
         filterMessage: "Showing all the posts.",
         post_list: data1
       });
