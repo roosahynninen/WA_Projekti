@@ -3,18 +3,17 @@ var express = require("express");
 var router = express.Router();
 var dateFormat = require("dateformat");
 
-//Importing models
-var User = require("../models/user");
-var Post = require("../models/post");
-
 //Variable for saving the username of the current user logged in
 var loggedUser;
 
+var Post = require("../routes/models");
+var User = require("../routes/models");
+
 // Good validation documentation available at https://express-validator.github.io/docs/
 const { sanitizeBody } = require("express-validator");
+const mongoose = require("mongoose");
 
 //Connecting to the database with mongoose
-const mongoose = require("mongoose");
 var dbUrl =
   "mongodb+srv://rhynnine:Kissa888!@cluster0.unrpb.mongodb.net/WAproject?retryWrites=true&w=majority";
 mongoose
