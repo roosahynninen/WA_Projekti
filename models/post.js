@@ -1,4 +1,4 @@
-//Creating the schema for posts
+//creating schema for posts
 const mongoose = require("mongoose");
 
 var postSchema = new mongoose.Schema({
@@ -7,5 +7,5 @@ var postSchema = new mongoose.Schema({
   time: { type: String, required: true }
 });
 
-// Export model.
+// exporting model
 module.exports = mongoose.model("Post", postSchema);

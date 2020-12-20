@@ -1,4 +1,4 @@
-//Creating the schema for users
+//creating schema for users
 const mongoose = require("mongoose");
 
 var userSchema = new mongoose.Schema({
@@ -6,5 +6,5 @@ var userSchema = new mongoose.Schema({
   password: { type: String, required: true, maxlength: 30 }
 });
 
-// Export model.
+// exporting model
 module.exports = mongoose.model("User", userSchema);

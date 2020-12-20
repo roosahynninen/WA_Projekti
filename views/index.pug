@@ -4,12 +4,12 @@ html
     title= title
     meta(charset='UTF-8')
     meta(name='viewport' content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/styles.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js')
 
     style
-      include ../stylesheets/style.css
+      include ../stylesheets/styles.css
 
   body
     .row.light-green.lighten-3
@@ -20,22 +20,22 @@ html
           .col.s5.m12
         .col.s12.m8
           h1= title
-          h6 Welcome to #{title}!
+          h6 Oh #{title}!
           br
         .col.s0.m2
     .row
       .container
-        p See what others have posted and post content yourself after logging in.
+        p Look at how others are feeling today! After log in you are able to post about your day.
         .col.s12.m3.l3.xl4.light-green.lighten-3.hoverable.border
           .col.s6.m12.l12.xl6
             p.red-text= logMessage
             h5 Log In
               form(method='POST' action='/posts/login')
                 .form-group.input-field
-                  input#logname.form-control(type='text', maxlength='30', name='userlogin')
+                  input#username_log.form-control(type='text', maxlength='30', name='userlogin')
                   label(for='logname') Username
                 .form-group.input-field
-                  input#logpw.form-control(type='password', maxlength='30', name='pwlogin')
+                  input#password_log.form-control(type='password', maxlength='30', name='pwlogin')
                   label(for='logpw') Password
                 button.btn.light-green.waves-effect(type='submit' name='loginbtn') Log In
             br
@@ -45,12 +45,12 @@ html
             h5 Sign Up
               form(method='POST' action='/posts/signup')
                 .form-group.input-field
-                  input#signname.form-control(type='text', maxlength='30', name='usersignup')
-                  label(for='signname') New username
+                  input#username_sign.form-control(type='text', maxlength='30', name='user_signup')
+                  label(for='username_sign') New username
                 .form-group.input-field
-                  input#signpw.form-control(type='password', maxlength='30', name='pwsignup')
-                  label(for='signpw') New password
-                button.btn.light-green.waves-effect(type='submit', name='signupbtn') Sign Up
+                  input#password_sign.form-control(type='password', maxlength='30', name='pass_signup')
+                  label(for='password_sign') New password
+                button.btn.light-green.waves-effect(type='submit', name='signup_button') Sign Up
             br
         .col.s0.m1
           .row
@@ -61,7 +61,7 @@ html
             each post in post_list.reverse()
               li.left-align #{post.user}: #{post.content} - #{post.time}
             else
-              p.left-align No posts yet
+              p.left-align No posts yet, be the first!
             ul
 
     
