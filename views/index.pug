@@ -20,7 +20,7 @@ html
           .col.s5.m12
         .col.s12.m8
           h1= title
-          h6 Oh #{title}!
+          h6 Tell us about your day!
           br
         .col.s0.m2
     .row
@@ -32,10 +32,10 @@ html
             h5 Log In
               form(method='POST' action='/posts/login')
                 .form-group.input-field
-                  input#username_log.form-control(type='text', maxlength='30', name='userlogin')
+                  input#logname.form-control(type='text', maxlength='30', name='userlogin')
                   label(for='logname') Username
                 .form-group.input-field
-                  input#password_log.form-control(type='password', maxlength='30', name='pwlogin')
+                  input#logpw.form-control(type='password', maxlength='30', name='pwlogin')
                   label(for='logpw') Password
                 button.btn.light-green.waves-effect(type='submit' name='loginbtn') Log In
             br
@@ -45,12 +45,12 @@ html
             h5 Sign Up
               form(method='POST' action='/posts/signup')
                 .form-group.input-field
-                  input#username_sign.form-control(type='text', maxlength='30', name='user_signup')
-                  label(for='username_sign') New username
+                  input#signname.form-control(type='text', maxlength='30', name='usersignup')
+                  label(for='signname') New username
                 .form-group.input-field
-                  input#password_sign.form-control(type='password', maxlength='30', name='pass_signup')
-                  label(for='password_sign') New password
-                button.btn.light-green.waves-effect(type='submit', name='signup_button') Sign Up
+                  input#signpw.form-control(type='password', maxlength='30', name='pwsignup')
+                  label(for='signpw') New password
+                button.btn.light-green.waves-effect(type='submit', name='signupbtn') Sign Up
             br
         .col.s0.m1
           .row

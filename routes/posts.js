@@ -1,31 +1,31 @@
-// Required libraries
+// importing required libraries
 var express = require("express");
 var router = express.Router();
 var dateFormat = require("dateformat");
 
-//Importing models
+//importing models/
 var Post = require("../models/post");
 var User = require("../models/user");
 
-//Variable for saving the username of the current user logged in
+//variable for current user
 var loggedUser;
 
-// Good validation documentation available at https://express-validator.github.io/docs/
+// good validation documentation available at https://express-validator.github.io/docs/
 const { sanitizeBody } = require("express-validator");
 const mongoose = require("mongoose");
 
-//Connecting to the database with mongoose
-var dbUrl =
+//connecting to the database with mongoose
+var DBUrl =
   "mongodb+srv://rhynnine:Kissa888!@cluster0.unrpb.mongodb.net/WAproject?retryWrites=true&w=majority";
 mongoose
-  .connect(dbUrl, { useNewUrlParser: true })
+  .connect(DBUrl, { useNewUrlParser: true })
   .catch((err) => console.log(err));
 mongoose.connection
   .once("open", function () {
     console.log("Connected");
   })
   .on("error", function (error) {
-    console.log("There's an error", error);
+    console.log("An error ocurred", error);
   });
 
 //Rendering the posts.pug view
